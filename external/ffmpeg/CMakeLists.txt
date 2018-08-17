@@ -16,11 +16,11 @@ set(FFMPEG_EXTRA_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/../x264/install/include "
 
 if (${DEBUG})
   message("Debug build of ffmpeg")
-  list(APPEND FFMPEG_OPTIM_OPTIONS --enable-debug --disable-optimizations --disable-yasm --disable-asm --disable-stripping)
+  list(APPEND FFMPEG_OPTIM_OPTIONS --enable-debug --disable-optimizations --disable-x86asm --disable-asm --disable-stripping)
   set(FFMPEG_EXTRA_CFLAGS "${FFMPEG_EXTRA_CFLAGS} -O0 -g -ggdb ")
 else (${DEBUG})
   message("Optimized build of ffmpeg")
-  list(APPEND FFMPEG_OPTIM_OPTIONS --disable-debug --enable-optimizations --enable-yasm --enable-asm --enable-stripping)
+  list(APPEND FFMPEG_OPTIM_OPTIONS --disable-debug --enable-optimizations --enable-x86asm --enable-stripping)
   set(FFMPEG_EXTRA_CFLAGS "${FFMPEG_EXTRA_CFLAGS} -march=native")
 endif (${DEBUG})
 
