@@ -14,7 +14,7 @@ list(APPEND CONFIGURE_OPTIONS --enable-static --enable-pic
 if (${DEBUG})
   list(APPEND CONFIGURE_OPTIONS --enable-debug --disable-asm)
 else (${DEBUG})
-  list(APPEND CONFIGURE_OPTIONS --enable-strip --extra-cflags="-march=native")
+  list(APPEND CONFIGURE_OPTIONS --enable-strip --extra-cflags=-march=native)
 endif(${DEBUG})
 
 ExternalProject_Add(x264_local
