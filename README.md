@@ -8,7 +8,14 @@ For any inquiry, feel free to file a ticket on Github.
 
 ## How to install
 
-First, install prerequisites. For DEB-based distro, this is:
+First, install prerequisites.
+
+For Ubuntu 18.04:
+```
+apt-get install git yasm nasm cmake gcc g++ build-essential libvpx5 libvpx-dev
+```
+
+For DEB-based distro, this is:
 
 ```
 apt-get install git yasm cmake gcc g++ build-essential libvpx3 libvpx-dev
