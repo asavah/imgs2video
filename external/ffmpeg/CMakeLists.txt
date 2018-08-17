@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 2.8.4)
 include(ExternalProject)
 
+include(ProcessorCount)
+
+ProcessorCount(N)
+if(NOT N EQUAL 0)
+    set(FFMPEG_BUILD_PARALLEL -j${N})
+endif()
+
 #project(ffmpeg-local)
 
 option(DEBUG "If debug build" OFF)
@@ -13,7 +20,8 @@ if (${DEBUG})
   set(FFMPEG_EXTRA_CFLAGS "${FFMPEG_EXTRA_CFLAGS} -O0 -g -ggdb ")
 else (${DEBUG})
   message("Optimized build of ffmpeg")
-  list(APPEND FFMPEG_OPTIM_OPTIONS --disable-debug --enable-optimizations --enable-yasm --enable-asm)
+  list(APPEND FFMPEG_OPTIM_OPTIONS --disable-debug --enable-optimizations --enable-yasm --enable-asm --enable-stripping)
+  set(FFMPEG_EXTRA_CFLAGS "${FFMPEG_EXTRA_CFLAGS} -march=native")
 endif (${DEBUG})
 
 set(FFMPEG_EXTRA_LIBS
@@ -64,7 +72,6 @@ list (APPEND FFMPEG_CONFIGURE_OPTIONS
 --enable-static
 --disable-bsfs
 --enable-bsf=h264_mp4toannexb
---disable-stripping
 --disable-postproc
 --disable-doc
 --disable-libgsm
@@ -83,7 +90,8 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../x264 ${CMAKE_CURRENT_SOURCE_DIR}
 
 ExternalProject_Add(ffmpeg-local
   DEPENDS x264_local
-  URL http://ffmpeg.org/releases/ffmpeg-3.2.1.tar.xz
+  URL https://ffmpeg.org/releases/ffmpeg-4.0.2.tar.xz
   BUILD_IN_SOURCE 1
   CONFIGURE_COMMAND ./configure ${FFMPEG_CONFIGURE_OPTIONS}
+  BUILD_COMMAND make ${FFMPEG_BUILD_PARALLEL}
   )
