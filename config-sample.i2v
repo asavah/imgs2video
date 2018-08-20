@@ -9,7 +9,7 @@ BITRATE=2000000
 SPEEDUP=240
 FRAMERATE=50
 declare -A VIDEO_ENCODING_OPTS_ARRAY
-VIDEO_ENCODING_OPTS_ARRAY["mp4"]=" -c:v libx264 -b:v $BITRATE -maxrate $BITRATE -bufsize $(($BITRATE/2)) -preset medium -movflags faststart "
+VIDEO_ENCODING_OPTS_ARRAY["mp4"]=" -c:v libx264 -b:v $BITRATE -maxrate $BITRATE -bufsize $(($BITRATE/2)) -preset medium -movflags +faststart "
 VIDEO_ENCODING_OPTS_ARRAY["webm"]=" -c:v libvpx -minrate $BITRATE -maxrate $BITRATE -b:v $BITRATE "
 FILTER="null"
 OFMTS="mp4 webm" # output format
