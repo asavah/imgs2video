@@ -1,10 +1,15 @@
 # configuration options of scripts daemon.sh, assemple_and_compress.sh
 
 NAME=webcam1
-BASEPATH=`pwd`
+#BASEPATH=`pwd`
 
-FFMPEG=ffmpeg
-FFPROBE=ffprobe
+#FFMPEG=ffmpeg
+#FFPROBE=ffprobe
+BASEPATH=/opt/imgs2video
+
+FFMPEG=/opt/imgs2video/imgs2video/ffmpeg
+FFPROBE=/opt/imgs2video/imgs2video/ffprobe
+
 BITRATE=2000000
 SPEEDUP=240
 FRAMERATE=50
@@ -19,21 +24,25 @@ IMGSDIR=$BASEPATH/$NAME/imgs_by_hour_dir
 VIDEODIR=$BASEPATH/$NAME/video_hours
 DAILY_VIDEO_DIR=$BASEPATH/$NAME/video_days
 LOG_DIR=$BASEPATH/$NAME/log
-SAVE_IMGS_DAYS=1
-SAVE_VIDEO_HOURS_DAYS=1
-SAVE_VIDEO_DAYS_DAYS=3
+#SAVE_IMGS_DAYS=1
+SAVE_IMGS_DAYS=20
+#SAVE_VIDEO_HOURS_DAYS=1
+SAVE_VIDEO_HOURS_DAYS=20
+#SAVE_VIDEO_DAYS_DAYS=3
+SAVE_VIDEO_DAYS_DAYS=30
 SAVE_LOG_DAYS=30
 DAYFILE=$BASEPATH/$NAME/last_day #prefix without extension
 URL='http://www.wirednewyork.com/images/webcams/wired-new-york-webcam4.jpg'
 # one more nice URL: http://www.wirednewyork.com/images/webcams/wired-new-york-webcam3.jpg
 
-AFTER_GET_IMAGE_HOOK='sleep 0'
+#AFTER_GET_IMAGE_HOOK='sleep 0'
+AFTER_GET_IMAGE_HOOK='sleep 3'
 AFTER_HOUR_PROC_HOOK=':'
 DAILY_HOOK=':'
 NOTIF_EMAILS=''
 
 # For upload of hourly videos onto central remote server
-#HV_AND_LOG_SYNC=yes # uncomment to enable infinite loop (in daemon) uploading new hourly videos and logs to central server
+HV_AND_LOG_SYNC=yes # uncomment to enable infinite loop (in daemon) uploading new hourly videos and logs to central server
 MASTER_SERVER="localhost"
 MASTER_SERVER_SSH_PORT=22
 RSYNC_E="ssh -p $MASTER_SERVER_SSH_PORT -o ConnectTimeout=10"
